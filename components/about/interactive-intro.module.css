@@ -1,0 +1,57 @@
+.intro {
+  position: relative;
+  padding: 7rem 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.hello {
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.line {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0 0.35em;
+}
+
+.word {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.accent {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.reveal {
+  font-size: clamp(1.15rem, 3.2vw, 1.9rem);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  max-width: 34ch;
+  font-weight: 400;
+}
+
+.rotate {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+@media (min-width: 900px) {
+  .intro {
+    padding-inline: 2rem;
+  }
+}

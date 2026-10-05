@@ -1,0 +1,74 @@
+.about {
+  position: relative;
+  padding: 6rem 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  max-width: 62ch;
+}
+
+.lead {
+  font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: -0.015em;
+}
+
+.paragraph {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.timelineCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timelineLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+.timelineLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-border), transparent);
+}
+
+.statsWrap {
+  margin-top: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .about {
+    padding: 8rem 0;
+  }
+
+  .grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 5rem;
+    align-items: start;
+  }
+}

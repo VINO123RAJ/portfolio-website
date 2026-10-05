@@ -1,0 +1,25 @@
+.skipLink {
+  position: absolute;
+  top: -2.5rem;
+  left: 0.5rem;
+  z-index: var(--z-tooltip);
+  padding: 0.5rem 1rem;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: top var(--transition-fast);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.skipLink:focus {
+  top: 0.5rem;
+  outline-color: #ffffff;
+}
+
+.skipLink:hover {
+  background-color: #7c7fd1;
+}

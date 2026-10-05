@@ -1,0 +1,125 @@
+.wrap {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.orbitRing {
+  animation: spin 40s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+.orbitRingReverse {
+  animation: spin 55s linear infinite reverse;
+  transform-origin: 50% 50%;
+}
+
+.core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 24%;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-border-alt);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--color-surface-alt), var(--color-primary));
+  box-shadow:
+    inset 0 0 24px rgba(99, 102, 241, 0.18),
+    0 0 40px -10px rgba(99, 102, 241, 0.35);
+}
+
+.coreLabel {
+  font-family: var(--font-mono);
+  font-size: clamp(0.5rem, 1.4vw, 0.7rem);
+  letter-spacing: 0.2em;
+  color: var(--color-text-secondary);
+}
+
+.node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-surface) 85%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.node:hover,
+.node:focus-visible {
+  outline: none;
+  border-color: var(--color-accent);
+  color: var(--color-text);
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 0 24px -6px rgba(99, 102, 241, 0.5);
+}
+
+.nodeActive {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+  box-shadow: 0 0 24px -6px rgba(99, 102, 241, 0.5);
+}
+
+.nodeDot {
+  display: none;
+}
+
+.nodeText {
+  font-size: clamp(0.6rem, 1.6vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.nodeMeta {
+  font-family: var(--font-mono);
+  font-size: clamp(0.5rem, 1.2vw, 0.6rem);
+  color: var(--color-text-tertiary);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    width: min(100%, 380px);
+  }
+
+  .nodeMeta {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbitRing,
+  .orbitRingReverse {
+    animation: none;
+  }
+}

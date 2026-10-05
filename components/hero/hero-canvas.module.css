@@ -1,0 +1,50 @@
+.canvasWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  animation: canvasFadeIn 1.4s ease 0.3s forwards;
+}
+
+.skeleton {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
+}
+
+@keyframes canvasFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.staticCore {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 4rem;
+}
+
+.staticCore svg {
+  width: min(100%, 520px);
+  height: auto;
+  animation: slowSpin 60s linear infinite;
+}
+
+@keyframes slowSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvasWrap {
+    animation: none;
+    opacity: 1;
+  }
+
+  .staticCore svg {
+    animation: none;
+  }
+}

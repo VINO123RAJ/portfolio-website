@@ -1,0 +1,334 @@
+.github {
+  position: relative;
+  padding: 6rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+/* Profile card */
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(160deg, var(--color-surface), var(--color-background));
+  align-self: start;
+}
+
+.profileTop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-alt);
+  object-fit: cover;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.login {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.joined {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.profileStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background-color: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.profileStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.85rem;
+  background-color: var(--color-background);
+  text-align: center;
+}
+
+.profileStat dt {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  order: 2;
+}
+
+.profileStat dd {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+  order: 1;
+}
+
+.profileLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--color-border-alt);
+  border-radius: var(--radius-full);
+  color: var(--color-text);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.profileLink:hover {
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-accent);
+}
+
+/* Repos */
+.repos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.repoCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-surface);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.repoCard:hover {
+  border-color: var(--color-border-alt);
+  background-color: var(--color-surface-alt);
+  transform: translateY(-3px);
+}
+
+.repoHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.repoIcon {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.repoName {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repoArrow {
+  color: var(--color-text-tertiary);
+  transition: color var(--transition-fast);
+}
+
+.repoCard:hover .repoArrow {
+  color: var(--color-accent);
+}
+
+.repoDesc {
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+}
+
+.repoMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+}
+
+.repoLang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.langDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.repoStat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.noRepos {
+  padding: 2rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Skeleton */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  min-height: 140px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Fallback */
+.fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1.5rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-2xl);
+  background: color-mix(in srgb, var(--color-surface) 50%, transparent);
+  text-align: center;
+}
+
+.fallbackIcon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  color: var(--color-text-secondary);
+  background-color: var(--color-background);
+}
+
+.fallbackTitle {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.fallbackText {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  max-width: 44ch;
+  line-height: 1.7;
+}
+
+.fallbackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--color-border-alt);
+  border-radius: var(--radius-full);
+  color: var(--color-text);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.fallbackLink:hover {
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-accent);
+}
+
+@media (min-width: 768px) {
+  .repos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .github {
+    padding: 8rem 0;
+  }
+
+  .content {
+    grid-template-columns: 0.8fr 1.5fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+  }
+
+  .repoCard:hover {
+    transform: none;
+  }
+}

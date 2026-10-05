@@ -1,0 +1,627 @@
+/* ==========================================================================
+   Experience / Internships — vertical career timeline
+   Scoped to the timeline + education blocks that live in this component.
+   ========================================================================== */
+
+.timeline {
+  --dot: 15px;
+  --node-top: 1.55rem;
+  --item-gap: 1.5rem;
+  --item-pad: 2.75rem;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--item-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  padding-left: var(--item-pad);
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i, 0) * 110ms),
+    transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i, 0) * 110ms);
+}
+
+.item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Connector rail — one segment per item, masked behind the node. */
+.rail {
+  position: absolute;
+  left: calc(var(--dot) / 2 - 0.5px);
+  top: 0;
+  bottom: calc(var(--item-gap) * -1);
+  width: 1px;
+  background-color: var(--color-border);
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i, 0) * 110ms + 200ms);
+}
+
+.item:first-child .rail {
+  top: var(--node-top);
+}
+
+.item:last-child .rail {
+  bottom: auto;
+  height: var(--node-top);
+}
+
+.item.visible .rail {
+  transform: scaleY(1);
+}
+
+.item.currentItem .rail {
+  background: linear-gradient(to bottom, var(--color-accent), var(--color-border) 65%);
+}
+
+/* Node */
+.node {
+  position: absolute;
+  left: 0;
+  top: var(--node-top);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--dot);
+  height: var(--dot);
+  border: 1px solid var(--color-border-alt);
+  border-radius: 50%;
+  background-color: var(--color-background);
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.nodeDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-text-tertiary);
+  transition:
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.item.visible .nodeDot {
+  background-color: var(--color-text-secondary);
+}
+
+.item.open .node {
+  border-color: var(--color-accent);
+}
+
+.item.open .nodeDot {
+  background-color: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
+}
+
+.item.currentItem .node {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-glow);
+}
+
+.item.currentItem .nodeDot {
+  background-color: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
+}
+
+.item.currentItem .node::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  animation: nodePulse 2.8s ease-out infinite;
+  pointer-events: none;
+}
+
+/* Card */
+.card {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--color-surface) 94%, transparent),
+    var(--color-background)
+  );
+  overflow: hidden;
+  transition:
+    border-color var(--transition-base),
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: var(--color-border-alt);
+  transform: translateY(-2px);
+  box-shadow: 0 26px 52px -34px rgba(0, 0, 0, 0.95);
+}
+
+.card:hover::before {
+  opacity: 0.7;
+}
+
+.currentItem .card {
+  border-color: color-mix(in srgb, var(--color-accent) 34%, var(--color-border));
+}
+
+.currentItem .card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-accent), transparent 85%);
+  pointer-events: none;
+}
+
+.open .card {
+  border-color: var(--color-border-alt);
+}
+
+/* Header */
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem 1.4rem;
+}
+
+.headMain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.currentBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.65rem;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  border-radius: var(--radius-full);
+  background-color: rgba(34, 197, 94, 0.09);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-success);
+}
+
+.currentDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+  animation: badgeBlink 2.2s ease-in-out infinite;
+}
+
+.title {
+  font-size: clamp(1.05rem, 2.1vw, 1.28rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  overflow-wrap: break-word;
+}
+
+.company {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.companyName {
+  overflow-wrap: break-word;
+}
+
+.sep {
+  color: var(--color-border-alt);
+}
+
+.location {
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.date {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* Expand control */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  padding: 0.3rem 0.4rem 0.3rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.toggle:hover {
+  border-color: var(--color-border-alt);
+  color: var(--color-text);
+  background-color: var(--color-surface-alt);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.toggleIcon {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-background);
+}
+
+.open .toggle {
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+  color: var(--color-accent);
+}
+
+/* Panel */
+.panel {
+  padding: 0 1.4rem 1.4rem;
+  animation: panelOpen 280ms ease forwards;
+}
+
+.summary {
+  margin-bottom: 1.1rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 0 1.15rem;
+  padding: 0;
+  list-style: none;
+}
+
+.bullet {
+  display: flex;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+.bulletMark {
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  margin-top: 0.62rem;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.summary:last-child,
+.bullets:last-child {
+  margin-bottom: 0;
+}
+
+/* Technology pills */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 0.78rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.tag:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: var(--color-accent-glow);
+}
+
+/* ============================== Education ============================== */
+
+.education {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 120ms,
+    transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 120ms;
+}
+
+.education.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.eduCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--color-surface) 94%, transparent),
+    var(--color-background)
+  );
+  transition: border-color var(--transition-base);
+}
+
+.eduCard:hover {
+  border-color: var(--color-border-alt);
+}
+
+.eduTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.eduYears {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.eduCgpa {
+  padding: 0.28rem 0.65rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+}
+
+.eduDegree {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.eduInstitution {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.eduDesc {
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+}
+
+/* ============================== Keyframes ============================== */
+
+@keyframes panelOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nodePulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes badgeBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* ============================== Responsive ============================== */
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .timeline {
+    --item-gap: 1.35rem;
+    --item-pad: 2.6rem;
+  }
+
+  .head {
+    padding: 1.3rem 1.3rem;
+  }
+
+  .panel {
+    padding: 0 1.3rem 1.3rem;
+  }
+}
+
+/* Mobile — keep a connected vertical timeline, tighter rhythm */
+@media (max-width: 767px) {
+  .timeline {
+    --dot: 13px;
+    --node-top: 1.3rem;
+    --item-gap: 1.15rem;
+    --item-pad: 2.15rem;
+  }
+
+  .head {
+    gap: 0.7rem;
+    padding: 1.15rem 1.1rem;
+  }
+
+  .panel {
+    padding: 0 1.1rem 1.15rem;
+  }
+
+  .title {
+    font-size: 1.02rem;
+  }
+
+  .company {
+    font-size: 0.84rem;
+  }
+
+  .date {
+    font-size: 0.63rem;
+  }
+
+  .currentBadge {
+    font-size: 0.55rem;
+  }
+
+  .toggleLabel {
+    display: none;
+  }
+
+  .toggle {
+    padding: 0.3rem;
+  }
+
+  .tag {
+    height: 28px;
+    padding: 0 0.66rem;
+    font-size: 0.68rem;
+  }
+
+  .summary,
+  .bullet {
+    font-size: 0.87rem;
+  }
+}
+
+/* ============================ Reduced motion ============================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .education {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .rail {
+    transform: scaleY(1);
+    transition: none;
+  }
+
+  .panel {
+    animation: none;
+  }
+
+  .card,
+  .card:hover {
+    transform: none;
+    transition: none;
+  }
+
+  .item.currentItem .node::after,
+  .currentDot {
+    animation: none;
+  }
+
+  .item.currentItem .node::after {
+    display: none;
+  }
+}

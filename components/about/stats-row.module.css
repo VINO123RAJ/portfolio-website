@@ -1,0 +1,71 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background-color: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.75rem 1.5rem;
+  background-color: var(--color-background);
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 600ms ease calc(var(--i) * 90ms),
+    transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i) * 90ms),
+    background-color var(--transition-base);
+}
+
+.stat:hover {
+  background-color: var(--color-surface);
+}
+
+.active .stat {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.value {
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.desc {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+@media (min-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat {
+    padding: 2.25rem 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

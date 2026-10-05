@@ -1,0 +1,33 @@
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding-inline: 2.5rem;
+  }
+}
+
+.default {
+  max-width: 1280px;
+}
+
+.narrow {
+  max-width: 900px;
+}
+
+.wide {
+  max-width: 1600px;
+}
+
+.full {
+  max-width: 100%;
+}

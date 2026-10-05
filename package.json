@@ -1,0 +1,49 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Portfolio of Vinothraj P, a Software Developer focused on modern web applications, AI, automation and full-stack development.",
+  "keywords": [
+    "portfolio",
+    "developer",
+    "nextjs",
+    "react",
+    "ai",
+    "automation"
+  ],
+  "author": "Vinothraj P",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,css,md}\""
+  },
+  "type": "module",
+  "dependencies": {
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.1",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "lucide-react": "^1.48.0",
+    "next": "16.3.6",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
+    "@types/node": "^26.6.3",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "@typescript-eslint/eslint-plugin": "^8.70.1",
+    "@typescript-eslint/parser": "^8.70.1",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.6",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.9",
+    "typescript": "^5.9.2"
+  }
+}
