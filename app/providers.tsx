@@ -44,10 +44,6 @@ function ThemeProvider({ children }: { children: ReactNode }) {
     const saved = window.localStorage.getItem('theme') as Theme | null
     if (saved === 'light' || saved === 'dark') {
       setTheme(saved)
-      return
-    }
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-      setTheme('light')
     }
   }, [])
 
